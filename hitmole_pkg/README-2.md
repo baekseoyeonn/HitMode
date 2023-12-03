@@ -1,49 +1,54 @@
-__전체 코드의 대략적 설명__  
-=====================
-__'''  
-        전체 게임 진행  
-        튜토리얼 - 1라운드 - 점수출력, 판별 (- 2라운드 - 점수 - 3라운드 - 점수) - 랭킹출력  
-        '''__  
-__hitmole_board() : 게임 시작 화면 출력 -  tutorial(): 먼저 튜토리얼을 진행 - start_board() : 게임 시작과 카운트다운 출력 - play_round() : 한 라운드를 진행 - play() : 게임진행__
+### 전체 게임 진행
+
+*   `tutorial` → `1라운드` → `점수출력` → `판별` → `2라운드` → `점수` → `3라운드` → `점수` → `랭킹출력`
+
+### 보드판 코드 설명
+
+1.  **HITMOLE**
+
+```
+hitmole_board(): 
+          os.system("clear")
+          print(HIT_MOLE)
+          time.sleep(1.5)
+          os.system("clear") 
+          print("\n"*20)
+          time.sleep(0.5) 
+```
+       
+터미널 코드 전적 지운 후 저장된 문자열인 게임명 출력, 읽을 수 있게 1.5초 유지
+다음 화면으로 넘어가기 전 공백을 위한 print("\n"*20)를 0.5초 유지
         
-__보드판 코드 설명__  
-================
-# 1. HIT MOLE 글자판을 한 번 깜박이는 함수.
--------------------------------
-    def hitmole_board():
-    os.system("clear")  # 터미널 화면을 지우는 역할.  
-    print(HIT_MOLE)  # HIT_MOLE이라는 변수에 저장된 문자열을 출력.
-    time.sleep(1.5)  # 프로그램을 1.5초 동안 일시 중지. "HIT MOLE"이라는 텍스트를 화면에 표시. 
-    os.system("clear") # 다시 화면을 지우고, 이전에 출력된 "HIT MOLE" 텍스트를 지우고 깨끗한 화면을 만듦.  
-    print("\n"*20) # 20번의 줄 바꿈(\n)을 통해 20개의 빈 줄을 출력. 화면이 추가적으로 깨끗하게 정리.
-    time.sleep(0.5) # 0.5초 동안 프로그램을 일시 중지. 빈 화면을 화면에 표시.
-# 2. 튜토리얼 시작을 알리는 함수.
----------------------
-    def tutorial_board():    
-    os.system("clear") # 터미널 화면을 지우는 역할.
-    print(TUTORIAL) # TUTORIAL이라는 변수에 문자열을 출력. "TUTORIAL"이라는 텍스트를 화면에 표시하는 역할. 
-    time.sleep(1.5) # 프로그램을 1.5초 동안 일시 중지. 이로써 "TUTORIAL"이라는 텍스트가 1.5초 동안 화면에 표시.
-    os.system("clear") # 다시 화면을 지움.  
-    print("\n"*20)
-    time.sleep(0.5) # 0.5초 동안 프로그램을 일시 중지. 빈 화면을 화면에 표시.
-# 3. 게임 시작 전 카운트다운과 함께 시작을 알리는 함수.  
-(3,2,1 후에 "GAME START" 텍스트를 출력.)
--------------------------------------
-    def start_board():        
-    os.system("clear") # 터미널 화면을 지우는 역할.  
-    for i in range(3): # 3번 반복하는 루프를 시작.(이는 3, 2, 1의 카운트 다운)  
-        print('\n'*8,end='') # 8번의 줄 바꿈을 통해 화면을 정리.  
-        index = (3-i)*5 # 현재 카운트 값에 따라 숫자를 가져오기 위한 인덱스를 계산.  
-        for l in range(5):  
-            print(' '*26, NUMS[l][index:index+5]) # 26칸의 공백을 출력한 후, `NUMS` 리스트에서 해당 인덱스 범위의 숫자를 출력  
-        print("\n"*8) # 숫자를 출력한 후 8번의 줄 바꿈을 통해 화면을 정리.   
-        time.sleep(0.5)  
-        os.system("clear") # 화면을 지움.   
+       
+2.  **튜토리얼 시작**
+
+```
+tutorial_board(): 
+          os.system("clear")
+          print(TUTORIAL)
+          ...
+```
+
+print 하는 문자만 다를 뿐 나머지 코드는 hitmole_board와 동일
+
+3. **게임 시작 전 3초 카운트다운과 함께 시작을 알리는 함수**
+
+```start_board():
+        os.system("clear") 
+        for i in range(3): # 3번 반복하는 루프를 시작.(이는 3, 2, 1의 카운트 다운)
+                print('\n'*8,end='') # 8번의 줄 바꿈을 통해 화면을 정리.  
+                index = (3-i)*5 # 현재 카운트 값에 따라 숫자를 가져오기 위한 인덱스를 계산.  
+                for l in range(5):  
+                        print(' '*26, NUMS[l][index:index+5]) # 26칸의 공백을 출력한 후, `NUMS` 리스트에서 해당 인덱스 범위의 숫자를 출력  
+                        print("\n"*8) # 숫자를 출력한 후 8번의 줄 바꿈을 통해 화면을 정리.
+                        time.sleep(0.5)  
+                        os.system("clear") # 화면을 지움.   
         print("\n"*21) # 21번의 줄 바꿈을 통해 화면을 정리.  
         time.sleep(0.5)  
         os.system("clear")  
-    print(START) # "GAME START" 텍스트를 출력.   
-    time.sleep(1.0)  
+        print(START) # "GAME START" 텍스트를 출력.   
+        time.sleep(1.0)
+
 # 4. 현재 랜덤으로 튀어나온 두더지를 출력하는 함수.
 _____________________________________________________ 
     ''' pop = [0 0 0 0 0 0 0 0 0]  
